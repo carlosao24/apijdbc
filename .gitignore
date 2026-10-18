@@ -1,0 +1,30 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# --- Maven ---
+target/
+
+# --- Eclipse ---
+.settings/
+.classpath
+.factorypath
+.project
+.springBeans
+.sts4-cache
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### VS Code ###
+.vscode/
+
+# --- Sistema Operativo ---
+.DS_Store
+Thumbs.db
