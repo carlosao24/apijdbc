@@ -90,4 +90,17 @@ public class VideojuegoJdbc {
 		}
 	}
 
+	public boolean eliminar(String codigo) throws SQLException {
+		String sql = "DELETE FROM videojuegos WHERE codigo = ?";
+		try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setString(1, codigo);
+			int filas = ps.executeUpdate();
+			logger.info("Videojuego eliminado con éxito: " + codigo);
+			return filas > 0;
+		} catch (SQLException e) {
+			logger.error("Error al eliminar videojuego: " + e.getMessage());
+			throw e;
+		}
+	}
+
 }
