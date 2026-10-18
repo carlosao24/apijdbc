@@ -71,4 +71,23 @@ public class VideojuegoJdbc {
 		return v;
 	}
 
+	public Videojuego actualizar(Videojuego v) throws SQLException {
+		String sql = "UPDATE videojuegos SET nombre = ?, plataforma = ?, precio = ?, disponible = ?, genero = ? WHERE codigo = ?";
+		try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setString(1, v.getNombre());
+			ps.setString(2, v.getPlataforma());
+			ps.setDouble(3, v.getPrecio());
+			ps.setBoolean(4, v.isDisponible());
+			ps.setString(5, v.getGenero());
+			ps.setString(6, v.getCodigo());
+
+			ps.executeUpdate();
+			logger.info("Videojuego actualizado con éxito: " + v.getCodigo());
+			return v;
+		} catch (SQLException e) {
+			logger.error("Error al actualizar videojuego: " + e.getMessage());
+			throw e;
+		}
+	}
+
 }
