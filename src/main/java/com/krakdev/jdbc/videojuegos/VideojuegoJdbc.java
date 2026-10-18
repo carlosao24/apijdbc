@@ -53,4 +53,22 @@ public class VideojuegoJdbc {
 		return lista;
 	}
 
+	public Videojuego buscarPorCodigo(String codigo) throws SQLException {
+		Videojuego v = null;
+		String sql = "SELECT codigo, nombre, plataforma, precio, disponible, genero FROM videojuegos WHERE codigo = ?";
+		try (Connection con = Conexion.conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setString(1, codigo);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					v = new Videojuego(rs.getString("codigo"), rs.getString("nombre"), rs.getString("plataforma"),
+							rs.getDouble("precio"), rs.getBoolean("disponible"), rs.getString("genero"));
+				}
+			}
+		} catch (SQLException e) {
+			logger.error("Error al buscar videojuego por código: " + e.getMessage());
+			throw e;
+		}
+		return v;
+	}
+
 }
